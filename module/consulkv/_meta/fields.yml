@@ -1,0 +1,11 @@
+- key: consulkv
+  title: "consulkv"
+  description: >
+    experimental[]
+
+    consulkv module
+  fields:
+    - name: consulkv
+      type: group
+      description: >
+      fields:

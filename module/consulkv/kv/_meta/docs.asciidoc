@@ -1,0 +1,3 @@
+=== consulkv kv MetricSet
+
+This is the kv metricset of the module consulkv.

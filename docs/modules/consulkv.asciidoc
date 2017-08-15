@@ -1,0 +1,38 @@
+////
+This file is generated! See scripts/docs_collector.py
+////
+
+[[metricbeat-module-consulkv]]
+== consulkv module
+
+This is the consulkv module.
+
+
+
+[float]
+=== Example configuration
+
+The consulkv module supports the standard configuration options that are described
+in <<configuration-metricbeat>>. Here is an example configuration:
+
+[source,yaml]
+----
+consulkvbeat.modules:
+- module: consulkv
+  metricsets: ["kv"]
+  enabled: false
+  period: 10s
+  hosts: ["localhost:8500"]
+  keys: ["foo"]
+
+----
+
+[float]
+=== Metricsets
+
+The following metricsets are available:
+
+* <<metricbeat-metricset-consulkv-kv,kv>>
+
+include::consulkv/kv.asciidoc[]
+

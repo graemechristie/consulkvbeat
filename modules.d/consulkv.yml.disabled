@@ -1,0 +1,7 @@
+- module: consulkv
+  metricsets: ["kv"]
+  enabled: false
+  period: 10s
+  hosts: ["localhost:8500"]
+  keys: ["foo"]
+

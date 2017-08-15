@@ -1,0 +1,7 @@
+2017-08-14T23:54:51+08:00 INFO Home path: [/Users/graemec/dev/go/src/github.com/graemechristie/consulkvbeat] Config path: [/Users/graemec/dev/go/src/github.com/graemechristie/consulkvbeat] Data path: [/Users/graemec/dev/go/src/github.com/graemechristie/consulkvbeat/data] Logs path: [/Users/graemec/dev/go/src/github.com/graemechristie/consulkvbeat/logs]
+2017-08-14T23:54:51+08:00 INFO Beat metadata path: /Users/graemec/dev/go/src/github.com/graemechristie/consulkvbeat/data/meta.json
+2017-08-14T23:54:51+08:00 INFO Metrics logging every 30s
+2017-08-14T23:54:51+08:00 INFO Beat UUID: 993d0893-b07b-4d92-a5ba-e966351882e4
+2017-08-14T23:54:51+08:00 INFO Setup Beat: consulkvbeat; Version: 7.0.0-alpha1
+2017-08-14T23:54:51+08:00 INFO No outputs are defined. Please define one under the output section.
+2017-08-14T23:54:51+08:00 CRIT Exiting: error initializing publisher: No outputs are defined. Please define one under the output section.
