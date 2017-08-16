@@ -1,3 +1,5 @@
+# This is a WIP and is not very useful right now
+
 # consulkvbeat
 
 consulkvbeat is a beat based on metricbeat which was generated with metricbeat/metricset generator.
