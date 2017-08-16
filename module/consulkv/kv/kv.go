@@ -1,6 +1,10 @@
 package kv
 
 import (
+	"regexp"
+
+	"encoding/json"
+
 	"github.com/elastic/beats/libbeat/common"
 	"github.com/elastic/beats/libbeat/logp"
 	"github.com/elastic/beats/metricbeat/mb"
@@ -50,30 +54,50 @@ func New(base mb.BaseMetricSet) (mb.MetricSet, error) {
 // Fetch methods implements the data gathering and data conversion to the right format
 // It returns the event which is then forward to the output. In case of an error, a
 // descriptive error must be returned.
-func (m *MetricSet) Fetch() (common.MapStr, error) {
-
+func (m *MetricSet) Fetch() ([]common.MapStr, error) {
 	config := api.DefaultConfig()
 	config.Address = m.Host()
+
 	client, err := api.NewClient(config)
 	if err != nil {
 		panic(err)
 	}
 
 	kv := client.KV()
-	mapStr := common.MapStr{}
 
+	mapStrs := []common.MapStr{}
 	for _, key := range m.keys {
-		logp.Warn("KEY: %v", key)
-		result, _, err := kv.List(key, nil)
+
+		r, _ := regexp.Compile("[^(]*")
+		base := r.FindString(key)
+
+		result, _, err := kv.List(base, nil)
 
 		if err != nil {
 			return nil, err
 		}
 
+		keyRegex, _ := regexp.Compile(key)
 		for _, pair := range result {
-			mapStr.Put(pair.Key, string(pair.Value[:]))
+			mapStr := common.MapStr{}
+			mapStr.Put("key", pair.Key)
+			if keyRegex.MatchString(pair.Key) {
+				match := keyRegex.FindStringSubmatch(pair.Key)
+				for i, name := range keyRegex.SubexpNames() {
+					if i != 0 {
+						mapStr.Put(name, match[i])
+					}
+				}
+				var dat map[string]interface{}
+				if err := json.Unmarshal(pair.Value, &dat); err != nil {
+					panic(err)
+				}
+
+				mapStr.Put("value", dat)
+			}
+			mapStrs = append(mapStrs, mapStr)
 		}
 	}
 
-	return mapStr, nil
+	return mapStrs, nil
 }
